@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="left-sidenav">
+    <!-- LOGO -->
+    <div class="brand">
+        <a href="{% url 'app' %}" class="logo">
+            <span>
+                <img src="{% static 'admin_panel/assets/images/mrm-logos/mrm-updated-logo2-150x150.png' %}" alt="logo-small" class="logo-sm" style="height: 85px;">
+            </span>
+        </a>
+    </div>
+    <!--end logo-->
+    <div class="menu-content h-100" data-simplebar>
+        <ul class="metismenu left-sidenav-menu">
+            <li class="menu-label mt-0"></li>
+            <li>
+                <a href="{% url 'app' %}"> <i data-feather="home" class="align-self-center menu-icon"></i><span>Dashboard</span></a>
+            </li>
+            <li>
+                <a href="javascript: void(0);"> <i data-feather="users" class="align-self-center menu-icon"></i><span>Product</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'product:category_list' %}"><i class="ti-control-record"></i>Category</a>
+                        <a class="nav-link" href="{% url 'product:create_category' %}"><i class="ti-plus"></i></a>
+                    </li>
+                    {% comment %} {% if request.user.is_superuser %}
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'core_team:core_team_list' %}"><i class="ti-control-record"></i>Core Team</a>
+                        <a class="nav-link" href="{% url 'core_team:create_core_team' %}"><i class="ti-plus"></i></a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_superuser or request.user|has_group:"core_team" %}
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'office_executive:office_executive_list' %}"><i class="ti-control-record"></i>Office Executive</a>
+                        <a class="nav-link" href="{% url 'office_executive:create_office_executive' %}"><i class="ti-plus"></i></a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item d-flex justify-content-between">
+                        <a class="nav-link" href="{% url 'field_executive:field_executive_list' %}"><i class="ti-control-record"></i>Field Executive</a>
+                        <a class="nav-link" href="{% url 'field_executive:create_field_executive' %}"><i class="ti-plus"></i></a>
+                    </li> {% endcomment %}
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
