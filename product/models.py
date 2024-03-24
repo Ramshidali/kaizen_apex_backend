@@ -17,7 +17,7 @@ class Category(BaseModel):
     
 class Product(BaseModel):
     name = models.CharField(max_length=200)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE,limit_choices_to={'is_deleted': False})
     image = VersatileImageField('Image', upload_to="product/product_image", blank=True, null=True)
     have_varient = models.BooleanField(default=True)
     

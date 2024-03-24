@@ -23,12 +23,11 @@
                         <a class="nav-link" href="{% url 'product:category_list' %}"><i class="ti-control-record"></i>Category</a>
                         <a class="nav-link" href="{% url 'product:create_category' %}"><i class="ti-plus"></i></a>
                     </li>
-                    {% comment %} {% if request.user.is_superuser %}
                     <li class="nav-item d-flex justify-content-between">
-                        <a class="nav-link" href="{% url 'core_team:core_team_list' %}"><i class="ti-control-record"></i>Core Team</a>
-                        <a class="nav-link" href="{% url 'core_team:create_core_team' %}"><i class="ti-plus"></i></a>
+                        <a class="nav-link" href="{% url 'product:product_list' %}"><i class="ti-control-record"></i>Product</a>
+                        <a class="nav-link" href="{% url 'product:create_product' %}"><i class="ti-plus"></i></a>
                     </li>
-                    {% endif %}
+                    {% comment %}
                     {% if request.user.is_superuser or request.user|has_group:"core_team" %}
                     <li class="nav-item d-flex justify-content-between">
                         <a class="nav-link" href="{% url 'office_executive:office_executive_list' %}"><i class="ti-control-record"></i>Office Executive</a>
