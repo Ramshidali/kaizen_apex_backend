@@ -62,15 +62,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kaizen_apex.wsgi.application'
 
-if not SERVER:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config('DB_NAME'),
@@ -78,9 +70,6 @@ else:
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
         'PORT': config('DB_PORT'),
-        'OPTIONS': {
-            'autocommit': True,
-        },
     }
 }
 
