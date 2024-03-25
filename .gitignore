@@ -32,6 +32,6 @@ media/
 .venv/
 env/
 venv/
-settings.ini/
+kaizen_apex/settings.ini/
 .ini/
 *.pyc
