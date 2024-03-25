@@ -28,10 +28,10 @@ media/
 
 
 # Environments
-.env/
-.venv/
-env/
-venv/
-kaizen_apex/settings.ini/
-.ini/
+.env
+.venv
+env
+venv
+.ini
 *.pyc
+settings.ini
