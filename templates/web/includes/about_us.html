@@ -1,0 +1,26 @@
+{% load web_templatetags %}
+{% load static %}
+{% get_about_us as about_us %}
+
+{% if about_us %}
+<!-- About Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                <div class="about-img position-relative overflow-hidden p-5 pe-0">
+                    <img class="img-fluid w-100" src="{{ about_us.image.url }}" style="border-radius: 4px;">
+                </div>
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <h1 class="display-5 mb-4 text-capitalize">{{ about_us.title }}</h1>
+                <div id="aboutUsDescription">
+                    {{ about_us.description|safe }}
+                </div>
+                <button class="btn btn-primary rounded-pill py-3 px-5 mt-3" id="aboutUsReadMoreBtn">Read More</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+{% endif %}

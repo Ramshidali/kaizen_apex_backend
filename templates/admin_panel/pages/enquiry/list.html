@@ -50,7 +50,7 @@
                                             <th class="font-weight-bold text-center">#</th>
                                             <th class="font-weight-bold text-center">Date Added</th>
                                             <th class="font-weight-bold text-left">Name</th>
-                                            <th class="font-weight-bold text-left">Occupation</th>
+                                            <th class="font-weight-bold text-left">Phone</th>
                                             <th class="font-weight-bold text-left">Email</th>
                                             <th class="text-right">Action</th>
                                         </tr>
@@ -63,12 +63,12 @@
                                             <td class="text-center">{{forloop.counter}}</td>
                                             <td class="text-center">{{instance.date_added|date:"d-M-Y"}}</td>
                                             <td class="text-left">{{instance.name}}</td>
-                                            <td class="text-left">{{instance.ocupation}}</td>
+                                            <td class="text-left">{{instance.phone}}</td>
                                             <td class="text-left">{{instance.email}}</td>
                                             
                                             <td class="text-right">
-                                                <a href="{% url 'web:info_blog' pk=instance.pk %}"><i class="las la-eye text-success font-18"></i></a>
-                                                <a data-id="{{instance.pk}}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" href="{% url 'web:delete_customer_review' pk=instance.pk %}"><i class="las la-trash-alt text-danger font-18"></i></a>
+                                                <a href="{% url 'web:info_enquiry' pk=instance.pk %}"><i class="las la-eye text-success font-18"></i></a>
+                                                <a data-id="{{instance.pk}}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" href="{% url 'web:delete_enquiry' pk=instance.pk %}"><i class="las la-trash-alt text-danger font-18"></i></a>
                                             </td>
                                         </tr>
                                         {% endfor %}

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>{{ page_title }}</title>
@@ -12,7 +11,7 @@
     {% include 'web/includes/fav_icon.html' %}
 
     {% include 'web/includes/css.html' %}
-    <style>
+    {% comment %} <style>
         /* Custom CSS */
         .overlay {
           position: fixed;
@@ -27,7 +26,7 @@
           color: white;
           z-index: 9999; /* Ensure it stays on top of other content */
         }
-      </style>
+      </style> {% endcomment %}
 </head>
 
 <body>
@@ -53,15 +52,56 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <div class="overlay">
+    {% comment %} <div class="overlay">
         <div class="text-center">
           <h1 style="color:white;">Website under maintenance</h1>
           <p>Website coming soon...</p>
         </div>
-    </div>
+    </div> {% endcomment %}
     {% include 'web/includes/js.html' %}
     {% block static %}
     {% endblock %}
+    <script>
+      function moreShow(position,element) {
+          var initialContent = document.getElementById(position + 'initialContent');
+          var remainingContent = document.getElementById(position + 'remainingContent');
+          
+          if (remainingContent.style.display === 'none') {
+              remainingContent.style.display = 'inline'; // or 'block' if it's a block-level element
+              element.textContent = 'Show Less';
+          } else {
+              remainingContent.style.display = 'none';
+              element.textContent = 'Read More';
+          }
+      }
+  
+      document.addEventListener('DOMContentLoaded', function() {
+          var aboutUsDescription = document.getElementById('aboutUsDescription');
+          var readMoreBtn = document.getElementById('aboutUsReadMoreBtn');
+          
+          var maxHeight = 155; // Maximum height to show initially
+          if (aboutUsDescription.clientHeight > maxHeight) {
+              aboutUsDescription.style.overflow = 'hidden';
+              aboutUsDescription.style.height = maxHeight + 'px';
+              readMoreBtn.style.display = 'block'; // Show Read More button
+          }
+          
+          // Toggle content visibility when Read More button is clicked
+          readMoreBtn.addEventListener('click', function(event) {
+              event.preventDefault(); // Prevent default link behavior
+              
+              if (aboutUsDescription.style.height === 'auto') {
+                  aboutUsDescription.style.height = maxHeight + 'px';
+                  readMoreBtn.textContent = 'Read More';
+              } else {
+                  aboutUsDescription.style.height = 'auto';
+                  readMoreBtn.textContent = 'Show Less';
+              }
+          });
+      });
+      
+      
+  </script>
 </body>
 
 </html>

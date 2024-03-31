@@ -3,8 +3,10 @@ from django.views.static import serve
 from django.urls import  include, path, re_path
 from . import settings
 from main import views as general_views
+from ckeditor_uploader import views as ckeditor_views
 
 urlpatterns = [
+    path('ckeditor/', include('ckeditor_uploader.urls')), 
     path('',include(('web.urls'),namespace='web')),
     
     path('admin/', admin.site.urls),

@@ -197,10 +197,12 @@ def product(request,pk):
     :return: Product Info single view
     """
     
-    instance = Product.objects.get(pk=pk)
+    instance = Product.objects.get(pk=pk,is_deleted=False)
+    varients = ProductVarient.objects.filter(product=instance,is_deleted=False)
 
     context = {
         'instance': instance,
+        'varients': varients,
         'page_name' : 'Product Info',
         'page_title' : 'Product Info',
     }
@@ -218,14 +220,6 @@ def product_list(request):
     filter_data = {}
     
     instances = Product.objects.filter(is_deleted=False).order_by("-date_added")
-         
-    date_range = request.GET.get('date_range')
-    if date_range:
-        start_date_str, end_date_str = date_range.split(' - ')
-        start_date = datetime.datetime.strptime(start_date_str, '%m/%d/%Y').date()
-        end_date = datetime.datetime.strptime(end_date_str, '%m/%d/%Y').date()
-        instances = instances.filter(date_added__range=[start_date, end_date])
-        filter_data['date_range'] = date_range
     
     query = request.GET.get("q")
     if query:
@@ -236,18 +230,8 @@ def product_list(request):
         title = "Product Report - %s" % query
         filter_data['q'] = query
     
-        
-    first_date_added = Product.objects.aggregate(first_date_added=Min('date_added'))['first_date_added']
-    last_date_added = Product.objects.aggregate(last_date_added=Max('date_added'))['last_date_added']
-    
-    first_date_formatted = first_date_added.strftime('%m/%d/%Y') if first_date_added else None
-    last_date_formatted = last_date_added.strftime('%m/%d/%Y') if last_date_added else None
-        
-    # print(branch)
     context = {
         'instances': instances,
-        'first_date_formatted': first_date_formatted,
-        'last_date_formatted': last_date_formatted,
         'page_name' : 'Product Report',
         'page_title' : 'Product Report',
         'filter_data' :filter_data,
@@ -262,11 +246,18 @@ def create_product(request):
     
     message = ''
     if request.method == 'POST':
+        form_is_valid = False
         product_form = ProductForm(request.POST,request.FILES)
-        print(product_form)
-        product_varient_formset = ProductVarientFormset(request.POST,prefix='product_varient_formset', form_kwargs={'empty_permitted': False})
+        product_varient_formset = ProductVarientFormset(request.POST,request.FILES,prefix='product_varient_formset', form_kwargs={'empty_permitted': False})
         
-        if product_form.is_valid() and product_varient_formset.is_valid():
+        if request.POST.get("have_varient") is None:
+            if product_form.is_valid():
+                form_is_valid = True
+        else:
+            if product_form.is_valid() and product_varient_formset.is_valid():
+                form_is_valid = True
+        
+        if form_is_valid:
             try:
                 with transaction.atomic():
                     product = product_form.save(commit=False)
@@ -275,14 +266,15 @@ def create_product(request):
                     product.product = product
                     product.save()
                     
-                    for form in product_varient_formset:
-                        data = form.save(commit=False)
-                        data.auto_id = get_auto_id(ProductVarient)
-                        data.creator = request.user
-                        data.date_updated = datetime.datetime.today()
-                        data.updater = request.user
-                        data.product = product
-                        data.save()
+                    if product.have_varient :
+                        for form in product_varient_formset:
+                            data = form.save(commit=False)
+                            data.auto_id = get_auto_id(ProductVarient)
+                            data.creator = request.user
+                            data.date_updated = datetime.datetime.today()
+                            data.updater = request.user
+                            data.product = product
+                            data.save()
                     
                     response_data = {
                         "status": "true",
@@ -309,7 +301,9 @@ def create_product(request):
                 }
         else:
             message = generate_form_errors(product_form, formset=False)
-            message += generate_form_errors(product_varient_formset, formset=True)
+            
+            if not request.POST.get("have_varient") is None:
+                message += generate_form_errors(product_varient_formset, formset=True)
             
             response_data = {
                 "status": "false",
@@ -364,25 +358,32 @@ def edit_product(request,pk):
         product_varient_formset = ProductVarientFormset(request.POST,request.FILES,
                                         instance=product_instance,
                                         prefix='product_varient_formset',
-                                        form_kwargs={'empty_permitted': False})    
+                                        form_kwargs={'empty_permitted': False}) 
+        
+        if request.POST.get("have_varient") is None:
+            if product_form.is_valid():
+                form_is_valid = True
+        else:
+            if product_form.is_valid() and product_varient_formset.is_valid():
+                form_is_valid = True
+        
+        if form_is_valid:   
                 
-        if product_varient_formset.is_valid():
-            #create
-            product = Product.objects.create(
-                    #create product
-                    date_updated = datetime.datetime.today(),
-                    updater = request.user,
-                )            
+            product = product_form.save(commit=False)
+            product.date_updated = datetime.datetime.today()
+            product.updater = request.user
+            product.save()
             
-            for form in product_varient_formset:
-                if form not in product_varient_formset.deleted_forms:
-                    i_data = form.save(commit=False)
-                    if not i_data.product :
-                        i_data.product = product_instance
-                    i_data.save()
-                
-            for f in product_varient_formset.deleted_forms:
-                f.instance.delete()
+            if product.have_varient :
+                for form in product_varient_formset:
+                    if form not in product_varient_formset.deleted_forms:
+                        i_data = form.save(commit=False)
+                        if not i_data.product :
+                            i_data.product = product_instance
+                        i_data.save()
+                    
+                for f in product_varient_formset.deleted_forms:
+                    f.instance.delete()
             
             response_data = {
                 "status": "true",
@@ -394,7 +395,10 @@ def edit_product(request,pk):
             }
     
         else:
-            message = generate_form_errors(product_varient_formset,formset=True)
+            message = generate_form_errors(product_form,formset=False)
+            
+            if not request.POST.get("have_varient") is None:
+                message += generate_form_errors(product_varient_formset,formset=True)
             
             response_data = {
                 "status": "false",
@@ -411,10 +415,12 @@ def edit_product(request,pk):
                                         instance=product_instance)
         
         context = {
+            'product_form': product_form,
             'product_varient_formset': product_varient_formset,
-            'message': message,
             'page_name' : 'edit sale',
-            'url' : reverse('product:edit_product', args=[product_instance.pk]),            
+            'url' : reverse('product:edit_product', args=[product_instance.pk]),    
+            
+            'is_edit': True,        
         }
 
         return render(request, 'admin_panel/pages/products/create_product.html', context)
@@ -437,6 +443,82 @@ def delete_product(request, pk):
         "status": "true",
         "title": "Successfully Deleted",
         "message": "Product Successfully Deleted.",
+        "redirect": "true",
+        "redirect_url": reverse('product:product_list'),
+    }
+
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+
+@login_required
+@role_required(['superadmin'])
+def edit_varient(request,pk):
+    """
+    edit operation of varient
+    :param request:
+    :param pk:
+    :return:
+    """
+    instance = get_object_or_404(ProductVarient, pk=pk)
+        
+    message = ''
+    if request.method == 'POST':
+        form = ProductVarientForm(request.POST,files=request.FILES,instance=instance)
+        
+        if form.is_valid():
+            #update Varient
+            data = form.save(commit=False)
+            data.date_updated = datetime.datetime.today()
+            data.updater = request.user
+            data.save()
+                    
+            response_data = {
+                "status": "true",
+                "title": "Successfully Created",
+                "message": "Varient Update successfully.",
+                'redirect': 'true',
+                "redirect_url": reverse('product:product_list')
+            }
+    
+        else:
+            message = generate_form_errors(form ,formset=False)
+            
+            response_data = {
+                "status": "false",
+                "title": "Failed",
+                "message": message
+            }
+
+        return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+    
+    else:
+        
+        form = ProductVarientForm(instance=instance)
+
+        context = {
+            'form': form,
+            'page_name' : 'Edit Varient',
+            'page_title' : 'Edit Varient',
+        }
+
+        return render(request, 'admin_panel/pages/create/create.html',context)
+
+@login_required
+@role_required(['superadmin'])
+def delete_varient(request, pk):
+    """
+    Product Varient deletion, it only mark as is deleted field to true
+    :param request:
+    :param pk:
+    :return:
+    """
+    instance = ProductVarient.objects.get(pk=pk)
+    instance.is_deleted = True
+    instance.save()
+    
+    response_data = {
+        "status": "true",
+        "title": "Successfully Deleted",
+        "message": "Varient Successfully Deleted.",
         "redirect": "true",
         "redirect_url": reverse('product:product_list'),
     }

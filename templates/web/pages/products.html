@@ -1,0 +1,95 @@
+{% extends 'web/base.html' %}
+{% load main_templatetags %}
+{% load static %}
+
+{% block content %}
+<!-- Page Header Start -->
+<div class="container-fluid page-header mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container">
+        <h1 class="display-3 mb-3 animated slideInDown">Products</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a class="text-body" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-body" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-dark active" aria-current="page">Products</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Product Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-0 gx-5 align-items-end">
+            <div class="col-lg-6">
+                <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+                    <h1 class="display-5 mb-3">Our Products</h1>
+                    <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+                <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                    {% for c in categories %}
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary border-2 {% if forloop.counter == 1 %} active {% endif %}" data-bs-toggle="pill" href="#tab-{{c.pk}}">{{c.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="tab-content">
+            {% for c in categories %}
+            <div id="tab-{{c.pk}}" class="tab-pane fade show p-0 {% if forloop.counter == 1 %}active{% endif %}">
+                <div class="row g-4">
+                    {% for product in c.get_products %}
+                        {% if product.have_varient %}
+                            {% for varient in product.get_varients %}
+                            <div class="col-xl-3 col-lg-4 col-md-6" style="border-radius:4px;">
+                                <div class="product-item">
+                                    <div class="position-relative bg-light overflow-hidden">
+                                        <img class="img-fluid w-100" src="{{ varient.image.url }}" alt="" style="height:200px;border-radius:2px;">
+                                        {% comment %} <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div> {% endcomment %}
+                                    </div>
+                                    <div class="text-center p-2" style="display: flex;justify-content: center;">
+                                        <a class="d-block h5 mb-2 text-capitalize" href="javaScript:void(0)">{{ varient.name }} {{ product.name }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                        <div class="col-xl-3 col-lg-4 col-md-6" style="border-radius:4px;">
+                            <div class="product-item">
+                                <div class="position-relative bg-light overflow-hidden">
+                                    <img class="img-fluid w-100" src="{{ product.image.url }}" alt="" style="height:200px;border-radius:2px;">
+                                    {% comment %} <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New</div> {% endcomment %}
+                                </div>
+                                <div class="text-center p-2" style="display: flex;justify-content: center;">
+                                    <a class="d-block h5 mb-2 text-capitalize" href="javaScript:void(0)">{{ product.name }}</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% comment %} <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                        <a class="btn btn-primary rounded-pill py-3 px-5" href="">Browse More Products</a>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Product End -->
+{%include 'web/includes/visit_our_firm.html' %}
+
+{%include 'web/includes/testimonials.html' %}
+
+{% endblock content %}
+{% block static %}
+{% load static %}
+
+{% endblock %}
+
+
+

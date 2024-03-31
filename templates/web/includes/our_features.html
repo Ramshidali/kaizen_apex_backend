@@ -1,0 +1,31 @@
+{% load web_templatetags %}
+{% load static %}
+{% get_our_features as our_features %}
+
+{% if our_features %}
+<!-- Feature Start -->
+<div class="container-fluid bg-light bg-icon my-5 py-6">
+    <div class="container">
+        <div class="section-header text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <h1 class="display-5 mb-3">Our Features</h1>
+            <p>Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+        </div>
+        {% for f in our_features %}
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="bg-white text-center h-100 p-4 p-xl-5">
+                    <img class="img-fluid mb-4" src="img/icon-1.png" alt="">
+                    <h4 class="mb-3 text-capitalize">{{f.title}}</h4>
+                    <p class="mb-4">
+                        <span id="ourFeatureinitialContent">{{ f.description|slice:":240" }}</span>
+                        <span id="ourFeatureremainingContent" style="display:none">{{ f.description|slice:"240:" }}</span>
+                    </p>
+                    <button class="btn btn-outline-primary border-2 py-2 px-4 rounded-pill" onclick="moreShow('ourFeature',this)">Read More</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+{% endif %}

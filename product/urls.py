@@ -14,4 +14,6 @@ urlpatterns = [
     re_path(r'^create-product/$', views.create_product, name='create_product'),
     re_path(r'^edit-product/(?P<pk>.*)/$', views.edit_product, name='edit_product'),
     re_path(r'^product-delete/(?P<pk>.*)/$', views.delete_product, name='delete_product'),
+    re_path(r'^edit-product-varient/(?P<pk>.*)/$', views.edit_varient, name='edit_varient'),
+    re_path(r'^delete-product-varient/(?P<pk>.*)/$', views.delete_varient, name='delete_varient'),
 ]

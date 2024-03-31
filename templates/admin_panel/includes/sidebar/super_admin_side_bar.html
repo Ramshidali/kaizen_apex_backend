@@ -27,19 +27,37 @@
                         <a class="nav-link" href="{% url 'product:product_list' %}"><i class="ti-control-record"></i>Product</a>
                         <a class="nav-link" href="{% url 'product:create_product' %}"><i class="ti-plus"></i></a>
                     </li>
-                    {% comment %}
-                    {% if request.user.is_superuser or request.user|has_group:"core_team" %}
-                    <li class="nav-item d-flex justify-content-between">
-                        <a class="nav-link" href="{% url 'office_executive:office_executive_list' %}"><i class="ti-control-record"></i>Office Executive</a>
-                        <a class="nav-link" href="{% url 'office_executive:create_office_executive' %}"><i class="ti-plus"></i></a>
-                    </li>
-                    {% endif %}
-                    <li class="nav-item d-flex justify-content-between">
-                        <a class="nav-link" href="{% url 'field_executive:field_executive_list' %}"><i class="ti-control-record"></i>Field Executive</a>
-                        <a class="nav-link" href="{% url 'field_executive:create_field_executive' %}"><i class="ti-plus"></i></a>
-                    </li> {% endcomment %}
                 </ul>
             </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:banner_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Banners</span></a>
+                <a class="nav-link" href="{% url 'web:create_banner' %}"><i class="ti-plus"></i></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:our_feature_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Our Features</span></a>
+                <a class="nav-link" href="{% url 'web:create_our_feature' %}"><i class="ti-plus"></i></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:about_us_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>About Us</span></a>
+                <a class="nav-link" href="{% url 'web:create_about_us' %}"><i class="ti-plus"></i></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:blog_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Blog</span></a>
+                <a class="nav-link" href="{% url 'web:create_blog' %}"><i class="ti-plus"></i></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:contact_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Contact</span></a>
+                <a class="nav-link" href="{% url 'web:create_contact' %}"><i class="ti-plus"></i></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:customer_review_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Customer Reviews</span></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:complaint_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Complaints</span></a>
+            </li>
+            <li class="nav-item d-flex justify-content-between" >
+                <a href="{% url 'web:enquiry_list' %}"> <i data-feather="dripicons-view-thumb" class="align-self-center dripicons-view-thumb menu-icon"></i><span>Enquiry</span></a>
+            </li>            
         </ul>
     </div>
 </div>

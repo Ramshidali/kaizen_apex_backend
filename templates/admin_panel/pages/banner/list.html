@@ -1,0 +1,53 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="page-title">Banners</h4>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Kaizen Apex</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Banners</a></li>
+                                <li class="breadcrumb-item active">List</li>
+                            </ol>
+                        </div><!--end col-->
+                    </div><!--end row-->                                                              
+                </div><!--end page-title-box-->
+            </div><!--end col-->
+        </div><!--end row-->
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            {% for instance in instances %}
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="blog-card">
+                            <img src="{{instance.image.url}}" alt="" class="img-fluid rounded"/>
+                            <span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold mt-3">{{instance.product.name}}</span>   
+                        </div><!--end blog-card--> 
+                    </div><!--end card-body-->
+                </div><!--end card-->
+            </div> <!--end col-->
+            {% endfor %}
+        </div> <!--end col-->
+    </div><!-- container -->
+
+    <footer class="footer text-center text-sm-left">
+        &copy; 2020 Dastone <span class="d-none d-sm-inline-block float-right">Crafted with <i class="mdi mdi-heart text-danger"></i> by Mannatthemes</span>
+    </footer><!--end footer-->
+</div>
+<!-- end page content -->
+{% endblock content %}
+
+{% block static %}
+{% load static %}
+{{form.media}}
+
+{% endblock  %}

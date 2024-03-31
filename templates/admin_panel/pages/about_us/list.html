@@ -1,0 +1,55 @@
+{% extends 'admin_panel/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Page Content-->
+<div class="page-content">
+    <div class="container-fluid">
+        <!-- Page-Title -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="page-title">About Us</h4>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Kaizen Apex</a></li>
+                                <li class="breadcrumb-item active">About Us</li>
+                            </ol>
+                        </div><!--end col-->
+                    </div><!--end row-->                                                              
+                </div><!--end page-title-box-->
+            </div><!--end col-->
+        </div><!--end row-->
+        <!-- end page title end breadcrumb -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 align-self-center">
+                                <img src="{{instance.image.url}}" alt="" class=" mx-auto  d-block" height="250">                                           
+                            </div><!--end col-->
+                            <div class="col-lg-6 align-self-start">
+                                <div class="single-pro-detail">
+                                    <p class="mb-1">Kaizen Apex</p>
+                                    <div class="custom-border mb-3"></div>
+                                    <h3 class="pro-title text-capitalize">{{instance.title}}</h3>
+                                    {{instance.description|safe}}
+                                </div>
+                            </div><!--end col-->                                            
+                        </div><!--end row-->
+                    </div><!--end card-body-->
+                </div><!--end card-->
+            </div><!--end col-->
+        </div><!--end row-->
+    </div><!-- container -->
+</div>
+<!-- end page content -->
+{% endblock content %}
+
+{% block static %}
+{% load static %}
+{{form.media}}
+
+{% endblock  %}
