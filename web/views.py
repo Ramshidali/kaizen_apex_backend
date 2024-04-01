@@ -20,8 +20,10 @@ from main.functions import generate_form_errors, get_auto_id
 def index(request):
     today_date = timezone.now().date()
     last_month_start = (today_date - timedelta(days=today_date.day)).replace(day=1)
+    about_us = {}
     banners = Banner.objects.filter(is_deleted=False).order_by("-date_added")
-    about_us = AboutUs.objects.filter(is_deleted=False).latest('-date_added')
+    if AboutUs.objects.filter(is_deleted=False).exists():
+        about_us = AboutUs.objects.filter(is_deleted=False).latest('-date_added')
     our_features = OurFeatures.objects.filter(is_deleted=False)
     categories = Category.objects.filter(is_deleted=False)
     customer_reviews = CustomerReviews.objects.filter(is_deleted=False)
