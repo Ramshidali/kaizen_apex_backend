@@ -11,7 +11,7 @@
     {% include 'web/includes/fav_icon.html' %}
 
     {% include 'web/includes/css.html' %}
-    {% comment %} <style>
+    <style>
         /* Custom CSS */
         .overlay {
           position: fixed;
@@ -26,7 +26,7 @@
           color: white;
           z-index: 9999; /* Ensure it stays on top of other content */
         }
-      </style> {% endcomment %}
+      </style>
 </head>
 
 <body>
@@ -52,12 +52,12 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
-    {% comment %} <div class="overlay">
+    <div class="overlay">
         <div class="text-center">
           <h1 style="color:white;">Website under maintenance</h1>
           <p>Website coming soon...</p>
         </div>
-    </div> {% endcomment %}
+    </div>
     {% include 'web/includes/js.html' %}
     {% include 'admin_panel/includes/js.html' %}
     {% block static %}
