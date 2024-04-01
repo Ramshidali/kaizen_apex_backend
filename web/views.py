@@ -81,6 +81,70 @@ def contact_us(request):
   
     return render(request,'web/pages/contact.html', context)
 
+def add_enquiry(request):
+    """
+    create operation of enquiry
+    :param request:
+    :param pk:
+    :return:
+    """
+    form = EnquiryForm(request.POST)
+        
+    if form.is_valid():
+        data = form.save(commit=False)
+        data.save()
+        
+        response_data = {
+        "status": "true",
+        "title": "Successfully Created",
+        "message": "Enquiry created successfully.",
+        'redirect': 'true',
+        "redirect_url": reverse('web:contact_us')
+        }
+            
+    else:
+        message =generate_form_errors(form , formset=False)
+        response_data = {
+            "status": "false",
+            "title": "Failed",
+            "message": message,
+        }
+
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+
+def add_complaint(request):
+    """
+    create operation of complaint
+    :param request:
+    :param pk:
+    :return:
+    """
+    form = ComplaintForm(request.POST)
+        
+    if form.is_valid():
+        data = form.save(commit=False)
+        data.save()
+        
+        current_url = request.POST.get("current_url")
+        
+        response_data = {
+        "status": "true",
+        "title": "Successfully Created",
+        "message": "Complaint created successfully.",
+        'redirect': 'true',
+        "redirect_url": current_url
+        }
+            
+    else:
+        message =generate_form_errors(form , formset=False)
+        response_data = {
+            "status": "false",
+            "title": "Failed",
+            "message": message,
+        }
+
+    return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+
 # ******************************************Admin Panel**********************************************#
 
 @login_required

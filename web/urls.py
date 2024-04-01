@@ -8,6 +8,10 @@ urlpatterns = [
     re_path(r'^products/$', views.products, name='products'),
     re_path(r'^about-us/$', views.about_us, name='about_us'),
     re_path(r'^contact-us/$', views.contact_us, name='contact_us'),
+    re_path(r'^add-enquiry/$', views.add_enquiry, name='add_enquiry'),
+    re_path(r'^add-complaint/$', views.add_complaint, name='add_complaint'),
+    
+    # Admin panel cruds
     
     path('banner-list/', views.banner_list, name='banner_list'),
     re_path(r'^banner-create/$', views.create_banner, name='create_banner'),

@@ -91,12 +91,12 @@ class ComplaintForm(forms.ModelForm):
 
     class Meta:
         model = Complaint
-        fields = ['complaint','phone','email']
+        fields = ['name','complaint','email']
 
         widgets = {
-            'complaint': Textarea(attrs={'class': 'required form-control','placeholder':"Enter Complaint"}),
-            'phone': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Phone"}),
-            'email': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Email"}),
+            'name': TextInput(attrs={'class': 'form-control bg-transparent w-100 my-2','placeholder':"Enter Name"}),
+            'complaint': Textarea(attrs={'class': 'form-control bg-transparent w-100 my-2','rows':'2','placeholder':"Enter Complaint"}),
+            'email': TextInput(attrs={'class': 'form-control bg-transparent w-100 my-2','placeholder':"Enter Email"}),
         }
         
 class EnquiryForm(forms.ModelForm):

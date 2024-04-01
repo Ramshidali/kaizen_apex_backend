@@ -108,7 +108,6 @@ class Complaint(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200)
     complaint = models.TextField()
-    phone = models.CharField(max_length=20)
     email = models.EmailField()
     date_added = models.DateTimeField(db_index=True, auto_now_add=True)
     is_deleted = models.BooleanField(default=False)
