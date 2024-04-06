@@ -37,6 +37,10 @@
                                     <h3 class="pro-title text-capitalize">{{instance.title}}</h3>
                                     {{instance.description|safe}}
                                 </div>
+                                <a href="{% url 'web:edit_about_us' pk=instance.pk %}" ><span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold mt-3"><i class="las la-pen text-success font-18"></i> Edit</span></a> 
+                                <a class="action-button remove btn btn-default btn-icon" data-id="{{instance.pk}}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" href="{% url 'web:delete_about_us' pk=instance.pk %}">
+                                    <span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold"><i class="las la-trash-alt text-danger font-18"></i> Delete</span>
+                                </a> 
                             </div><!--end col-->                                            
                         </div><!--end row-->
                     </div><!--end card-body-->

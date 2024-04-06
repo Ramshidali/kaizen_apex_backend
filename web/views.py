@@ -544,7 +544,7 @@ def edit_about_us(request,pk):
         if form.is_valid():
             #update AboutUs
             data = form.save(commit=False)
-            data.date_updated = datetime.datetime.today()
+            data.date_updated = datetime.today()
             data.updater = request.user
             data.save()
                     
@@ -663,8 +663,8 @@ def create_customer_review(request):
             "status": "true",
             "title": "Successfully Created",
             "message": "Customer Review created successfully.",
-            'redirect': 'true',
-            "redirect_url": reverse('web:customer_review_list')
+            'reload': 'true',
+            # "redirect_url": reverse('web:customer_review_list')
             }
                 
         else:

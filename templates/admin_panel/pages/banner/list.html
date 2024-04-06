@@ -30,7 +30,12 @@
                     <div class="card-body">
                         <div class="blog-card">
                             <img src="{{instance.image.url}}" alt="" class="img-fluid rounded"/>
-                            <span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold mt-3">{{instance.product.name}}</span>   
+                            <span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold mt-3">{{instance.product.name}}</span>
+                            
+                            <a href="{% url 'web:edit_banner' pk=instance.pk %}" ><span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold mt-3"><i class="las la-pen text-success font-18"></i> Edit</span></a> 
+                            <a class="action-button remove btn btn-default btn-icon" data-id="{{instance.pk}}" data-text="{{confirm_delete_message}}" data-title="Are you sure?" href="{% url 'web:delete_banner' pk=instance.pk %}">
+                                <span class="badge badge-purple px-3 py-2 bg-soft-primary font-weight-semibold"><i class="las la-trash-alt text-danger font-18"></i> Delete</span>
+                            </a> 
                         </div><!--end blog-card--> 
                     </div><!--end card-body-->
                 </div><!--end card-->

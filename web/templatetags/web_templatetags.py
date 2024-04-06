@@ -4,7 +4,7 @@ from django import template
 from django.db.models import Q, Sum
 from django.contrib.auth.models import User, Group
 
-from web.forms import ComplaintForm
+from web.forms import ComplaintForm, CustomerReviewsForm
 from web.models import AboutUs, CustomerReviews,OurFeatures
 
 register = template.Library()
@@ -33,3 +33,8 @@ def get_about_us():
 @register.simple_tag
 def complaint_form():
     return ComplaintForm()
+
+
+@register.simple_tag
+def customer_review_form():
+    return CustomerReviewsForm()

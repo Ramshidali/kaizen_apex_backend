@@ -46,10 +46,10 @@ class CustomerReviewsForm(forms.ModelForm):
         fields = ['name','ocupation','email','review','image']
 
         widgets = {
-            'name': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Name"}),
-            'ocupation': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Ocupation"}),
-            'email': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Email"}),
-            'review': Textarea(attrs={'class': 'required form-control','placeholder':"Enter Review"}),
+            'name': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Name","style":"border-radius:5px;"}),
+            'ocupation': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Ocupation","style":"border-radius:5px;"}),
+            'email': TextInput(attrs={'class': 'required form-control','placeholder':"Enter Email","style":"border-radius:5px;"}),
+            'review': Textarea(attrs={'class': 'required form-control','placeholder':"Enter Review",'rows':"2","style":"border-radius:5px;"}),
             'image': FileInput(attrs={'class': 'form-control dropify'}),
         }
         

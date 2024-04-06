@@ -156,7 +156,7 @@ USE_TZ = True
 
 LOGIN_URL = '/app/accounts/login/'
 LOGOUT_URL = '/app/accounts/logout/'
-LOGIN_REDIRECT_URL = '/mrm-super-admin/'
+LOGIN_REDIRECT_URL = '/kaizen-super-admin/'
 LOGOUT_REDIRECT_URL = '/app/accounts/login/'
 
 MEDIA_URL = '/media/'

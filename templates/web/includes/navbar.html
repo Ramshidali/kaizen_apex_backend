@@ -16,8 +16,9 @@
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-light py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-        <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
-            <h1 class="fw-bold text-primary m-0">Kaizen<span class="text-secondary"> Apex</span></h1>
+        <a href="{% url 'web:index' %}" class="navbar-brand ms-4 ms-lg-0">
+            {% comment %} <h1 class="fw-bold text-primary m-0">Kaizen<span class="text-secondary"> Apex</span></h1> {% endcomment %}
+            <img src="{% static 'admin_panel/assets/images/logo/kaizen-logo.jpg' %}" height="50" >
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
